@@ -24,7 +24,7 @@ namespace TechJobs.Controllers
         {
             results = JobData.FindByColumnAndValue(searchType, searchTerm);
 
-            return Redirect("/");
+            return Redirect("Index");
         }
     }
 }
