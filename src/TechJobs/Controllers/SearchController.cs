@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using TechJobs.Models;
 
@@ -6,12 +7,10 @@ namespace TechJobs.Controllers
 {
     public class SearchController : Controller
     {
-        private static List<Dictionary<string, string>> results = new List<Dictionary<string, string>>();
+        //private static List<Dictionary<string, string>> results = new List<Dictionary<string, string>>();
 
         public IActionResult Index()
         {
-            if (results.Count != 0) ViewBag.search = results; 
-
             ViewBag.columns = ListController.columnChoices;
             ViewBag.title = "Search";
             
@@ -22,9 +21,18 @@ namespace TechJobs.Controllers
         // search request and display results
         public IActionResult Results(string searchType, string searchTerm)
         {
-            results = JobData.FindByColumnAndValue(searchType, searchTerm);
+            ViewBag.columns = ListController.columnChoices;
 
-            return Redirect("Index");
+            if (String.IsNullOrEmpty(searchTerm) == false)
+            {
+                if (searchType.Equals("all"))
+                
+                    ViewBag.jobs = JobData.FindByValue(searchTerm);
+                else
+                    ViewBag.jobs = JobData.FindByColumnAndValue(searchType, searchTerm);
+            }
+
+            return View("Index");
         }
     }
 }
