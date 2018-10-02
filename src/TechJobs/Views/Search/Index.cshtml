@@ -40,7 +40,7 @@
                 @foreach (KeyValuePair<string, string> pair in job)
                 {
                     <tr>
-                        <td>@pair.Key</td>
+                        <td>@pair.Key.First().ToString().ToUpper()@pair.Key.Substring(1)</td>
                         <td>@pair.Value</td>
                     </tr>
                 }
