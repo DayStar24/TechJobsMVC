@@ -28,6 +28,8 @@ namespace TechJobs.Controllers
                 else
                     ViewBag.jobs = JobData.FindByColumnAndValue(searchType, searchTerm);
             }
+            else
+                ViewBag.jobs = JobData.FindAll();
 
             return View("Index");
         }
